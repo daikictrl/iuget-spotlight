@@ -101,6 +101,7 @@ export type Database = {
           followers_count: number | null
           full_name: string | null
           id: string
+          is_blocked: boolean | null
           matricule_id: string
           updated_at: string | null
         }
@@ -112,6 +113,7 @@ export type Database = {
           followers_count?: number | null
           full_name?: string | null
           id: string
+          is_blocked?: boolean | null
           matricule_id: string
           updated_at?: string | null
         }
@@ -123,6 +125,7 @@ export type Database = {
           followers_count?: number | null
           full_name?: string | null
           id?: string
+          is_blocked?: boolean | null
           matricule_id?: string
           updated_at?: string | null
         }
