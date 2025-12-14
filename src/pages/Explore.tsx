@@ -13,6 +13,18 @@ const Explore = () => {
   const [currentUserId, setCurrentUserId] = useState<string>();
   const [likedVideos, setLikedVideos] = useState<Set<string>>(new Set());
 
+  // Sanitize search input to prevent SQL injection
+  const sanitizeSearchInput = (input: string): string => {
+    // Escape special PostgREST/PostgreSQL characters
+    return input
+      .replace(/\\/g, '\\\\')
+      .replace(/%/g, '\\%')
+      .replace(/_/g, '\\_')
+      .replace(/'/g, "''")
+      .replace(/"/g, '\\"')
+      .trim();
+  };
+
   const handleSearch = async () => {
     if (!searchQuery.trim()) return;
     
@@ -20,6 +32,9 @@ const Explore = () => {
     
     const { data: { user } } = await supabase.auth.getUser();
     setCurrentUserId(user?.id);
+
+    // Sanitize user input before using in query
+    const sanitizedQuery = sanitizeSearchInput(searchQuery);
 
     const { data: videosData } = await supabase
       .from("videos")
@@ -30,8 +45,8 @@ const Explore = () => {
           matricule_id
         )
       `)
-      .eq("status", "approved")
-      .or(`title.ilike.%${searchQuery}%,description.ilike.%${searchQuery}%`)
+      .eq("status", "published")
+      .or(`title.ilike.%${sanitizedQuery}%,description.ilike.%${sanitizedQuery}%`)
       .order("created_at", { ascending: false });
 
     setVideos(videosData || []);
