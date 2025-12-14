@@ -32,7 +32,7 @@ const Home = () => {
           matricule_id
         )
       `)
-      .eq("status", "approved")
+      .eq("status", "published")
       .order("created_at", { ascending: false });
 
     if (error) {
