@@ -42,7 +42,7 @@ const Explore = () => {
         *,
         profiles (
           full_name,
-          matricule_id
+          avatar_url
         )
       `)
       .eq("status", "published")

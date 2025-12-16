@@ -41,7 +41,7 @@ const Profile = () => {
           *,
           profiles (
             full_name,
-            matricule_id
+            avatar_url
           )
         `)
         .eq("user_id", user.id)
