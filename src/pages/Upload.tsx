@@ -94,12 +94,12 @@ const Upload = () => {
           description,
           video_url: publicUrl,
           tags: tags.split(",").map(tag => tag.trim()).filter(Boolean),
-          status: "pending",
+          status: "published",
         });
 
       if (insertError) throw insertError;
 
-      toast.success("Video uploaded successfully! Awaiting approval.");
+      toast.success("Video uploaded successfully!");
       navigate("/profile");
     } catch (error: any) {
       console.error("Upload error:", error);
